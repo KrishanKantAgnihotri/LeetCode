@@ -12,22 +12,18 @@ public:
         sort(v.rbegin(),v.rend());
         long long int sm = 0 ;
         long long int ans = 0 ; 
-        priority_queue<long,vector<long>,greater<long> > pq; 
-//         for(int i = 0 ;i<k ;i++){
-//             sm+=v[i].ss;
-//             pq.push(-v[i].ss);
-//             sm%=MOD;
-//             ans = max(ans*1LL,(sm*v[i].ff)%MOD );
-//         }
-        
-        for(int i = 0 ;i<n ;i++){
+        priority_queue<long > pq; 
+        for(int i = 0 ;i<k ;i++){
             sm+=v[i].ss;
-            pq.push(v[i].ss);
-            if(pq.size()>k){
-                sm-=pq.top();
-                pq.pop();
-            }
-           
+            pq.push(-v[i].ss);
+            ans = max(ans,sm*v[i].ff );
+        }
+        
+        for(int i = k ;i<n ;i++){
+            sm+=pq.top();
+            pq.pop();
+            sm+=v[i].ss;
+            pq.push(-v[i].ss);
             ans = max(ans,v[i].ff*sm );
         }
         return ans%MOD;
