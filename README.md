@@ -1,2 +1,2 @@
 # LeetCode
-Collection of LeetCode question.
+Collection of LeetCode question solved by me.
