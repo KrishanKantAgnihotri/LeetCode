@@ -1,41 +1,45 @@
-// OJ: https://leetcode.com/contest/weekly-contest-240/problems/largest-color-value-in-a-directed-graph/
-// Author: github.com/lzl124631x
-// Time: O(V + E)
-// Space: O(V + E)
 class Solution {
-    typedef array<int, 26> T;
 public:
-    int largestPathValue(string C, vector<vector<int>>& E) {
-        unordered_map<int, vector<int>> G;
-        vector<int> indegree(C.size());
-        for (auto &e : E) {
-            G[e[0]].push_back(e[1]); // build graph
-            indegree[e[1]]++; // count indegrees
+    int largestPathValue(string s, vector<vector<int>>& e)   {
+        int n = s.size() ;
+        if(e.size() == 0) return 1;
+        vector<vector<int>> adj(n+1,vector<int>());
+        vector<vector<int>> dp(n+1,vector<int>(26));
+        vector<int> indg(n+1);
+        int ans = 0 ; 
+        int cnt = 0 ; 
+        for(int i = 0 ;i<e.size() ;i++){
+            adj[e[i][0]].push_back(e[i][1]);
+            indg[e[i][1]]++;
         }
-        vector<T> cnt(C.size(), T{}); // cnt[i][j] is the maximum count of j-th color from the ancester nodes to node i.
         queue<int> q;
-        for (int i = 0; i < C.size(); ++i) {
-            if (indegree[i] == 0) { // if this node has 0 indegree, we can use it as a source node
+        for(int i = 0 ;i<n ;i++){
+            if(indg[i] == 0){
                 q.push(i);
-                cnt[i][C[i] - 'a'] = 1; // the count of the current color should be 1
+                dp[i][s[i]-'a']++;
+                cnt++;
             }
         }
-        int ans = 0, seen = 0;
-        while (q.size()) {
-            auto u = q.front();
-            q.pop();
-            int val = *max_element(begin(cnt[u]), end(cnt[u])); // we use the maximum of all the maximum color counts as the color value.
-            ans = max(ans, val);
-            ++seen;
-            for (int v : G[u]) {
-                for (int i = 0; i < 26; ++i) {
-                    cnt[v][i] = max(cnt[v][i], cnt[u][i] + (i == C[v] - 'a')); // try to use node `u` to update all the color counts of node `v`.
-                }
-                if (--indegree[v] == 0) {
-                    q.push(v);
+        while(q.size()){
+            int m = q.size();
+            for(int i = 0 ;i<m ;i++){
+                int u = q.front();
+                q.pop();
+                for(auto child :adj[u]){
+                    indg[child]--;
+                    for(int k = 0 ;k<26 ;k++){
+                        dp[child][k] = max(dp[child][k],dp[u][k]);
+                    }
+                    if(indg[child] == 0){
+                        cnt++;
+                        dp[child][s[child]-'a']++;
+                        int mx = *max_element(dp[child].begin(),dp[child].end());
+                        ans = max(ans,mx);
+                        q.push(child);
+                    }
                 }
             }
         }
-        return seen < C.size() ? -1 : ans;
+        return (n !=cnt)?-1:ans;
     }
 };
