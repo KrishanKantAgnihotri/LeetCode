@@ -1,25 +1,22 @@
 class Solution {
 public:
     string removeStars(string s) {
-        stack<char> st;
-        int n = s.length();
-        for(int i = 0 ;i<n ;i++){
-            if(s[i]=='*'){
-                st.pop();
+        int cnt = 0 ;
+        string res = ""; 
+        for(int i = s.length()-1;i>=0 ;i--){
+            if(s[i] == '*'){
+                cnt++;
             }
             else{
-            st.push(s[i]);
-
+                if(cnt>0){
+                    cnt--;
+                }
+                else{
+                    res+=s[i];
+                }
             }
         }
-        s="";
-        while(st.size()){
-            s+=st.top();
-            st.pop();
-        }
-        if(s.length()){
-            reverse(s.begin(),s.end());
-        }
-        return s;
+        reverse(res.begin(),res.end());
+        return res;
     }
 };
