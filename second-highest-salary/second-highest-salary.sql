@@ -2,4 +2,9 @@
 
 
 
-select (SELECT DISTINCT(SALARY) FROM EMPLOYEE ORDER BY SALARY DESC  LIMIT 1 OFFSET 1) as SecondHighestSalary ;
+
+
+
+
+SELECT MAX(SALARY) as SecondHighestSalary FROM employee where 
+SALARY NOT IN  (SELECT MAX(SALARY) FROM EMPLOYEE  );
