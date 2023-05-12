@@ -3,19 +3,13 @@
  * @return {Function}
  */
 var once = function(fn) {
-    let called = false;
-    let res;
+    let ok = false;
     return function(...args){
-        if(!called){
-            called= true;
-            res = fn(...args);
+        if(!ok){
+            ok = true;
+            let res = fn(...args);
             return res;
-        }    
-        else{
-            return undefined;
         }
-        return res;
-
     }
 };
 
