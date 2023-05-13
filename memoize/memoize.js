@@ -2,14 +2,13 @@
  * @param {Function} fn
  */
 function memoize(fn) {
-    let cache = {};
+    const cache = {};
     return function(...args) {
-        console.log(args);
-       let x =  (args).join("^");
-        console.log(cache[x]);
-        if(!cache.hasOwnProperty(x)){
-            cache[x] = fn(...args);
+       const x =  (args).join(" ");
+        if(x in cache){
+            return cache[x];
         }
+        cache[x] = fn(...args);
         return cache[x];
     }
 }
