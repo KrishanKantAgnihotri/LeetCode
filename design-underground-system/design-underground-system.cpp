@@ -1,7 +1,7 @@
 class UndergroundSystem {
-map<pair<string,string>,long> u;
-map<int,pair<string,int>> list;
-map<pair<string,string>,long> cnt;
+unordered_map<string,long> u;
+unordered_map<int,pair<string,int>> list;
+map<string,long> cnt;
 public:
     UndergroundSystem() {
         
@@ -17,13 +17,13 @@ public:
             int t1 = list[id].second;
             int t2 = t;
             string b = stationName;
-            u[{a,b}]+=(t2-t1);
-            cnt[{a,b}]++;
+            u[a+"*"+b]+=(t2-t1);
+            cnt[a+"*"+b]++;
         }
     }
     
     double getAverageTime(string startStation, string endStation) {
-        return double(u[{startStation,endStation}]*1.0/cnt[{startStation,endStation}]*1.0);
+        return double(u[startStation+"*"+endStation]*1.0/cnt[startStation+"*"+endStation]*1.0);
     }
 };
 
