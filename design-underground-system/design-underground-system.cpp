@@ -1,6 +1,7 @@
 class UndergroundSystem {
 unordered_map<string,long> u;
-unordered_map<int,pair<string,int>> list;
+unordered_map<int,string> list;
+unordered_map<int,int> list2;
 map<string,long> cnt;
 public:
     UndergroundSystem() {
@@ -8,13 +9,14 @@ public:
     }
     
     void checkIn(int id, string stationName, int t) {
-        list[id]  = {stationName,t};
+        list[id]  = stationName;
+        list2[id]  = t;
     }
     
     void checkOut(int id, string stationName, int t) {
         if(list.find(id)!=list.end()){
-            string a = list[id].first;
-            int t1 = list[id].second;
+            string a = list[id];
+            int t1 = list2[id];
             int t2 = t;
             string b = stationName;
             u[a+"*"+b]+=(t2-t1);
