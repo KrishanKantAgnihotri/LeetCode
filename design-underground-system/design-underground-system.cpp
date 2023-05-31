@@ -2,7 +2,7 @@ class UndergroundSystem {
 unordered_map<string,long> u;
 unordered_map<int,string> list;
 unordered_map<int,int> list2;
-map<string,long> cnt;
+unordered_map<string,long> cnt;
 public:
     UndergroundSystem() {
         
