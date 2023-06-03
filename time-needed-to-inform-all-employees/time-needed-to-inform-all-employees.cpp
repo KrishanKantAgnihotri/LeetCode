@@ -1,25 +1,26 @@
 class Solution {
-private:
-    using Manager = int;
-    using Time = int;
-    pair<Time, Manager> moveUnderHead(vector<int>& manager, vector<int>& informTime, int v) {
-        if (manager[manager[v]] != -1) { 
-            
-            auto timeManager = moveUnderHead(manager, informTime, manager[v]); 
-            informTime[v] += timeManager.first;
-            manager[v] = timeManager.second;
-        }
-        return {informTime[v], manager[v]};
-    }
 public:
     int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
-        int result = 0;
-        for (int i=0; i<n; ++i) {
-            if (i==headID) continue;
-            auto a = moveUnderHead(manager, informTime, i);
-            result = max(result, a.first);
+        unordered_map<int,vector<int> >m;
+        for(int i=0;i<manager.size();i++) {
+            m[manager[i]].push_back(i);
         }
-        
-        return result + informTime[headID];
+        queue<pair<int,int>>q;
+        q.push(make_pair(headID,0));
+        int maxi=0;
+        while(!q.empty()) {
+            int n=q.size();
+            for(int i=0;i<n;i++) {
+                int head=q.front().first;
+                int timeTaken=q.front().second;
+                q.pop();
+                int dur=informTime[head]+timeTaken;
+                maxi=max(maxi,dur);
+                for(auto it:m[head]) {
+                    q.push(make_pair(it,dur));
+                }
+            }
+        }
+        return maxi;
     }
 };
