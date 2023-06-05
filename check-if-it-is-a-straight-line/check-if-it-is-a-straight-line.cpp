@@ -5,7 +5,7 @@ public:
         for(int i = 0 ;i<v.size() ;i++){
             points.push_back({v[i][0],v[i][1]});
         }
-        sort(points.begin(),points.end());
+        // sort(points.begin(),points.end());
         int n = points.size();
         if(points.size()==2){
             return true;
