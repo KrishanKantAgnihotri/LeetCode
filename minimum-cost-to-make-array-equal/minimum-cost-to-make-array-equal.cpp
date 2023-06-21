@@ -11,9 +11,9 @@ public:
     }
     long long minCost(vector<int>& v, vector<int>& c) {
         int n = v.size();   
-        ll l = 1;
-        ll r = 1000000;
-        ll ans = check(v,c,1);
+        ll l = *min_element(v.begin(),v.end());
+        ll r = *max_element(v.begin(),v.end());
+        ll ans = check(v,c,l);
         while(l<r){
             ll mid = (l+r)/2;
             ll a1 = check(v,c,mid);
