@@ -1,37 +1,18 @@
 class Solution {
 public:
-    int check(vector<int> &v,int x){
+    int minSubArrayLen(int t, vector<int>& v) {
+        int n = v.size();
+        int l = 0 ; 
+        int r = 0 ; 
+        int ans = INT_MAX ; 
         int sm = 0 ; 
-        int ans = 0 ;
-        int n = v.size(); 
-        for(int i = 0 ;i<x ;i++){
-            sm+=v[i];
-        }
-        ans = max(ans,sm);
-        for(int i = x ;i<n; i++){
-            sm-=v[i-x];
-            sm+=v[i];
-            ans = max(ans,sm);
-
-        }
-        return ans;
-    }
-    int minSubArrayLen(int t, vector<int>& nums) {
-        int l = 1; 
-        int r = nums.size();
-        int ans = 0;
-        while(l<=r){
-            int mid = (l+r)/2;
-            int x = check(nums,mid);
-            //cout<<x<<endl;
-            if(x>=t){
-                ans = mid;
-                r = mid-1;
-            }
-            else{
-                l=mid+1;
+        while(r<v.size()){
+            sm+=v[r++];
+            while(sm>=t){
+                ans = min(ans,r-l);
+                sm-=v[l++];
             }
         }
-        return ans;
+        return ans == INT_MAX?0:ans;
     }
 };
