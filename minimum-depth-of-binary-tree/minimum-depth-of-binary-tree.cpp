@@ -10,26 +10,18 @@
  * };
  */
 class Solution {
-public:
-    int minDepth(TreeNode* root) {
-        if(root == NULL) return 0  ; 
-        queue<TreeNode*> q;
-        q.push(root);
-        int val  = 1 ; 
-        while(!q.empty()){
-            int n = q.size();
-            for(int i = 0 ;i<n ;i++){
-                TreeNode* cur  = q.front();
-                q.pop();
-                if(cur->left == NULL && cur->right == NULL){
-                    return val;
-                }
-                if(cur->left) q.push(cur->left);
-                if(cur->right) q.push(cur->right);
-            }
-            val++;
+public: 
+    int ans = INT_MAX;
+    int minDepth(TreeNode* root,int cur = 1) {
+        if(root == NULL){
+            return 0 ; 
         }
-        return 0 ; 
-
+        if(root->left== NULL && root->right == NULL){
+            ans = min(ans,cur);
+            return ans;
+        }
+        minDepth(root->left,cur+1);
+        minDepth(root->right,cur+1);
+        return ans;
     }
 };
