@@ -13,20 +13,21 @@ class Solution {
 public:
     int minDepth(TreeNode* root) {
         if(root == NULL) return 0  ; 
-        queue<pair<TreeNode*,int>> q;
-        q.push({root,1});
+        queue<TreeNode*> q;
+        q.push(root);
+        int val  = 1 ; 
         while(!q.empty()){
             int n = q.size();
             for(int i = 0 ;i<n ;i++){
-                TreeNode* cur  = q.front().first;
-                int val = q.front().second;
+                TreeNode* cur  = q.front();
                 q.pop();
                 if(cur->left == NULL && cur->right == NULL){
                     return val;
                 }
-                if(cur->left) q.push({cur->left,val+1});
-                if(cur->right) q.push({cur->right,val+1});
+                if(cur->left) q.push(cur->left);
+                if(cur->right) q.push(cur->right);
             }
+            val++;
         }
         return 0 ; 
 
