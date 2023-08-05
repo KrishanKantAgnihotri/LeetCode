@@ -13,7 +13,7 @@ class Solution {
 public:
     vector<TreeNode*> buildTree(int s,int e){
         if(s>e) return {NULL};
-        if(s == e) return {new TreeNode(s)};
+        
         vector<TreeNode*> ans; 
         for(int i = s ;i<=e; i++){
             vector<TreeNode*> l = buildTree(s,i-1);
