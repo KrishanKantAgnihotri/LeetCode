@@ -7,18 +7,18 @@ public:
     }
     
     void push(int x) {
-        stack<int> s2,s3;
+        stack<int> s3;
          
         while(s.size()){
             s3.push(s.top());
             s.pop();
         }
-       s2.push(x);
+       s.push(x);
        while(s3.size()){
-           s2.push(s3.top());
+           s.push(s3.top());
            s3.pop();
        }
-        s = s2;
+        
     }
     
     int pop() {
@@ -32,7 +32,7 @@ public:
     }
     
     bool empty() {
-        return s.empty();
+        return s.size() == 0;
     }
 };
 
