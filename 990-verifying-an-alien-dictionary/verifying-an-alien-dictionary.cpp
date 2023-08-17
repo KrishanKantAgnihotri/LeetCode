@@ -9,12 +9,11 @@ public:
            
        } 
        for(int i = 0 ;i<words.size() ;i++){
-           string s = words[i];
-           for(int j = 0 ;j<s.length();j++){
-               s[j] = u[s[j]];
-           }
-           words[i] = s;
            
+           for(int j = 0 ;j<words[i].length();j++){
+               words[i][j] = u[words[i][j]];
+           }
+                      
        }
       
        return is_sorted(words.begin(),words.end());
