@@ -6,7 +6,8 @@ public:
         queue<pair<int,int>> q;
         for(int i = 0 ;i<n;i++){
             for(int j = 0 ;j<m ;j++){
-                if(mat[i][j] == 0) q.push({i,j}),mat[i][j]  = -1 ; 
+                if(mat[i][j] == 0) q.push({i,j});
+                else mat[i][j] = -1; 
             }
         }
         vector<pair<int,int>> dir;
@@ -14,7 +15,7 @@ public:
         dir.push_back({1,0});
         dir.push_back({0,-1});
         dir.push_back({-1,0});
-        vector<vector<int>> ans(n,vector<int>(m));
+        
         while(!q.empty()){
             int k = q.size();
             for(int i = 0 ;i<k ;i++ ){
@@ -23,14 +24,13 @@ public:
                 for(auto [ii,jj] : dir){
                     int xx = x+ii;
                     int yy = y+jj;
-                    if(xx>=0 && yy>=0 && xx<n && yy<m && (mat[xx][yy]!=-1)){
-                        mat[xx][yy] = -1;
-                        ans[xx][yy] = ans[x][y]+1;
+                    if(xx>=0 && yy>=0 && xx<n && yy<m && (mat[xx][yy]==-1)){
+                        mat[xx][yy] = mat[x][y]+1;
                         q.push({xx,yy});
                     }
                 }
             }
         }
-        return ans;
+        return mat;
     }
 };
