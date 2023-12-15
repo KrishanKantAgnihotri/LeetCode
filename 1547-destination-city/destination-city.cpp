@@ -6,8 +6,8 @@ public:
             u[paths[i][0]]++;
             if(!u.count(paths[i][1])) u[paths[i][1]]=0;
         }
-        for(auto it : u) {
-            if(it.second == 0) return it.first;
+        for(auto& [k,v] : u) {
+            if(v == 0) return k;
         }
         return "";
     }
